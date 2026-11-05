@@ -3,6 +3,8 @@ extends CanvasLayer
 signal restart_clicked
 signal menu_clicked
 
+const MobileTouchControlsScript = preload("res://scripts/mobile_touch_controls.gd")
+
 @onready var p1_bar: ProgressBar = $MarginContainer/TopBar/P1Health
 @onready var p2_bar: ProgressBar = $MarginContainer/TopBar/P2Health
 @onready var timer_label: Label = $MarginContainer/TopBar/TimerLabel
@@ -23,9 +25,15 @@ var match_time: float = 99.0
 var match_ended: bool = false
 var match_active: bool = false
 
+# Controles Virtuais Touch para Mobile
+var mobile_controls: MobileTouchControls = null
+var btn_toggle_touch: Button = null
+
 func set_match_active(active: bool) -> void:
 	match_active = active
 	visible = active
+	if mobile_controls:
+		mobile_controls.visible = active and not match_ended
 
 # Barra de habilidades
 @onready var skill_bar: HBoxContainer = $SkillBar
@@ -51,7 +59,39 @@ func _ready() -> void:
 		btn_resume.pressed.connect(toggle_pause)
 	if btn_pause_menu:
 		btn_pause_menu.pressed.connect(_on_menu_button_pressed)
+
+	# Instanciar e acoplar os Controles Touch Mobile
+	mobile_controls = MobileTouchControlsScript.new()
+	add_child(mobile_controls)
+	mobile_controls.pause_requested.connect(toggle_pause)
+
+	# Adicionar botão de alternar controles touch no menu de pausa
+	_setup_pause_touch_toggle()
+
 	setup_class_hud("fighter")
+
+func _setup_pause_touch_toggle() -> void:
+	if not pause_panel:
+		return
+	var vbox: VBoxContainer = pause_panel.get_node_or_null("VBox")
+	if vbox:
+		btn_toggle_touch = Button.new()
+		btn_toggle_touch.text = "📱 CONTROLES TOUCH: ATIVADOS"
+		btn_toggle_touch.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		btn_toggle_touch.add_theme_font_size_override("font_size", 16)
+		if btn_resume:
+			btn_toggle_touch.theme = btn_resume.theme
+		btn_toggle_touch.pressed.connect(_on_toggle_touch_pressed)
+		vbox.add_child(btn_toggle_touch)
+		vbox.move_child(btn_toggle_touch, 2)
+
+func _on_toggle_touch_pressed() -> void:
+	if not mobile_controls:
+		return
+	mobile_controls.is_active = !mobile_controls.is_active
+	mobile_controls.visible = mobile_controls.is_active and match_active and not match_ended
+	if btn_toggle_touch:
+		btn_toggle_touch.text = "📱 CONTROLES TOUCH: " + ("ATIVADOS" if mobile_controls.is_active else "DESATIVADOS")
 
 func setup_class_hud(class_id: String) -> void:
 	current_class_id = class_id
@@ -63,6 +103,9 @@ func setup_class_hud(class_id: String) -> void:
 			bottom_hint.text = "[W, A, S, D] Mover   |   [ESPAÇO] Pular   |   [J / Botão Esquerdo] Tiros   |   [K] Focar Mira   |   [SHIFT] Esquiva   |   [SHIFT+CTRL / No Ar: CTRL] Deslizar   |   [Q] [E] [F] Habilidades"
 		else:
 			bottom_hint.text = "[W, A, S, D] Mover   |   [ESPAÇO] Pular   |   [J / Clique Esquerdo] Socar   |   [SHIFT] Esquiva   |   [SHIFT+CTRL / No Ar: CTRL] Deslizar   |   [K] Bloquear   |   [Q] [E] [F] Habilidades"
+
+	if mobile_controls:
+		mobile_controls.set_class_id(class_id)
 
 	_build_skill_bar()
 
@@ -147,6 +190,9 @@ func _build_skill_bar() -> void:
 
 func setup(p1: Fighter, p2: Fighter) -> void:
 	skill_player = p1
+	if mobile_controls and p1:
+		mobile_controls.set_skill_player(p1)
+
 	if p1:
 		p1.health_changed.connect(_on_p1_health_changed)
 		p1_bar.max_value = p1.max_health
@@ -197,6 +243,9 @@ func _on_p2_health_changed(current: float, _max: float) -> void:
 
 func show_match_result(player_won: bool, reason: String) -> void:
 	match_ended = true
+	if mobile_controls:
+		mobile_controls.visible = false
+
 	if not game_over_panel:
 		return
 
@@ -217,7 +266,6 @@ func show_match_result(player_won: bool, reason: String) -> void:
 
 	# Animação dramática estilo GTA V (fade in suave + expansão de texto)
 	var tween: Tween = create_tween().set_parallel(true)
-	# Garante que a UI anime em tempo real mesmo se o jogo 3D estiver em câmera lenta
 	tween.set_speed_scale(1.0 / max(Engine.time_scale, 0.05))
 	tween.tween_property(game_over_panel, "modulate:a", 1.0, 0.35)
 	title_label.pivot_offset = title_label.size * 0.5
@@ -236,6 +284,10 @@ func toggle_pause() -> void:
 		return
 	var is_paused: bool = !pause_panel.visible
 	pause_panel.visible = is_paused
+
+	if mobile_controls:
+		mobile_controls.visible = !is_paused and match_active and not match_ended
+
 	if btn_resume and is_paused:
 		btn_resume.grab_focus()
 	# No modo offline pausa a física, no modo online apenas abre o menu sem congelar
