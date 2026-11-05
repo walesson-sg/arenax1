@@ -1,0 +1,16 @@
+# Godot 4+ specific ignores
+.godot/
+*.translation
+
+# Mono / C# specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# OS / Editor ignores
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Servidor Node.js (tem seu próprio repositório: arenax1-server)
+server/

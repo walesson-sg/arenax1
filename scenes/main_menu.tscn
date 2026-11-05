@@ -1,0 +1,322 @@
+[gd_scene format=3 uid="uid://dg3x4m7v8y1k0"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_menu_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.06, 0.07, 0.11, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+content_margin_left = 36.0
+content_margin_top = 32.0
+content_margin_right = 36.0
+content_margin_bottom = 32.0
+bg_color = Color(0.1, 0.12, 0.17, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.65, 0.2, 0.8)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_gold"]
+content_margin_top = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.9, 0.62, 0.18, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.82, 0.45, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_gold_hover"]
+content_margin_top = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(1, 0.74, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.95, 0.7, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_cyan"]
+content_margin_top = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.15, 0.45, 0.65, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.75, 0.95, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_cyan_hover"]
+content_margin_top = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.2, 0.58, 0.85, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.65, 0.9, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_dark"]
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.18, 0.2, 0.28, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.45, 0.58, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+content_margin_left = 32.0
+content_margin_top = 28.0
+content_margin_right = 32.0
+content_margin_bottom = 28.0
+bg_color = Color(0.08, 0.09, 0.14, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.75, 0.95, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 25
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu_script")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainCard" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/MainCard"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="CenterContainer/MainCard/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 10
+theme_override_constants/letter_spacing = 6
+theme_override_font_sizes/font_size = 46
+text = "ARENA X1"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CenterContainer/MainCard/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.85, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 14
+text = "DUELOS DE COMBATE EM TEMPO REAL"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/MainCard/VBox"]
+layout_mode = 2
+
+[node name="BtnQuickMatch" type="Button" parent="CenterContainer/MainCard/VBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.08, 0.08, 0.12, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gold")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_gold_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_gold")
+text = "⚡ PARTIDA RÁPIDA (ALEATÓRIO)"
+
+[node name="BtnCreateRoom" type="Button" parent="CenterContainer/MainCard/VBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cyan")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_cyan_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_cyan")
+text = "👥 CRIAR SALA DE DUELO (AMIGOS)"
+
+[node name="BtnJoinRoom" type="Button" parent="CenterContainer/MainCard/VBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.9, 0.92, 0.98, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_dark")
+text = "⌨️ ENTRAR POR CÓDIGO DE SALA"
+
+[node name="BtnBotMatch" type="Button" parent="CenterContainer/MainCard/VBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.7, 0.72, 0.8, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_dark")
+text = "🤖 TREINO OFFLINE (VS BOT)"
+
+[node name="JoinModal" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -110.0
+offset_right = 200.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="JoinModal"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="ModalTitle" type="Label" parent="JoinModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.75, 0.95, 1)
+theme_override_font_sizes/font_size = 20
+text = "DIGITE O CÓDIGO DA SALA"
+horizontal_alignment = 1
+
+[node name="CodeInput" type="LineEdit" parent="JoinModal/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+placeholder_text = "CÓDIGO (EX: X9B2K1)"
+alignment = 1
+max_length = 8
+
+[node name="IpInput" type="LineEdit" parent="JoinModal/VBox"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+placeholder_text = "IP do Host (opcional, padrão: 127.0.0.1)"
+alignment = 1
+
+[node name="HBox" type="HBoxContainer" parent="JoinModal/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BtnCancelJoin" type="Button" parent="JoinModal/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+text = "CANCELAR"
+
+[node name="BtnConfirmJoin" type="Button" parent="JoinModal/VBox/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cyan")
+text = "ENTRAR NO DUELO"
+
+[node name="MatchModal" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -120.0
+offset_right = 220.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBox" type="VBoxContainer" parent="MatchModal"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="StatusLabel" type="Label" parent="MatchModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 20
+text = "Procurando oponente online..."
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="MatchModal/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 16
+text = "Tempo decorrido: 00:00"
+horizontal_alignment = 1
+
+[node name="BotFallbackContainer" type="VBoxContainer" parent="MatchModal/VBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FallbackLabel" type="Label" parent="MatchModal/VBox/BotFallbackContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "Nenhum jogador na fila no momento."
+horizontal_alignment = 1
+
+[node name="BtnAcceptBot" type="Button" parent="MatchModal/VBox/BotFallbackContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gold")
+text = "⚔️ JOGAR CONTRA O BOT ENQUANTO ESPERA"
+
+[node name="BtnCancelMatch" type="Button" parent="MatchModal/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "CANCELAR BUSCA"
+

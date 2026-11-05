@@ -1,0 +1,458 @@
+[gd_scene format=3 uid="uid://b7vyu4q3qaxlm"]
+
+[ext_resource type="Script" path="res://scripts/class_selection.gd" id="1_class_select_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_back"]
+content_margin_left = 18.0
+content_margin_top = 8.0
+content_margin_right = 18.0
+content_margin_bottom = 8.0
+bg_color = Color(0.16, 0.18, 0.25, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.45, 0.58, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_fighter"]
+content_margin_left = 22.0
+content_margin_top = 18.0
+content_margin_right = 22.0
+content_margin_bottom = 18.0
+bg_color = Color(0.08, 0.09, 0.13, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.65, 0.2, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.95, 0.65, 0.2, 0.15)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge_fighter"]
+content_margin_left = 12.0
+content_margin_top = 4.0
+content_margin_right = 12.0
+content_margin_bottom = 4.0
+bg_color = Color(0.95, 0.65, 0.2, 0.18)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95, 0.65, 0.2, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_fighter"]
+content_margin_top = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.85, 0.58, 0.15, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.85, 0.45, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_fighter_hover"]
+content_margin_top = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(1, 0.72, 0.22, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.95, 0.7, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card_gunslinger"]
+content_margin_left = 22.0
+content_margin_top = 18.0
+content_margin_right = 22.0
+content_margin_bottom = 18.0
+bg_color = Color(0.08, 0.09, 0.13, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.75, 1, 0.75)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.2, 0.75, 1, 0.15)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_badge_gunslinger"]
+content_margin_left = 12.0
+content_margin_top = 4.0
+content_margin_right = 12.0
+content_margin_bottom = 4.0
+bg_color = Color(0.2, 0.75, 1, 0.18)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.75, 1, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_gunslinger"]
+content_margin_top = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.12, 0.45, 0.72, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.88, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_gunslinger_hover"]
+content_margin_top = 11.0
+content_margin_bottom = 11.0
+bg_color = Color(0.18, 0.58, 0.9, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.95, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_notice"]
+content_margin_left = 18.0
+content_margin_top = 8.0
+content_margin_right = 18.0
+content_margin_bottom = 8.0
+bg_color = Color(0.06, 0.08, 0.12, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.75, 1, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="ClassSelection" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_class_select_script")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DarkOverlay" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.05, 0.08, 0.85)
+
+[node name="MainContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -285.0
+offset_right = 440.0
+offset_bottom = 285.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="HeaderBox" type="VBoxContainer" parent="Control/MainContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TitleLabel" type="Label" parent="Control/MainContainer/HeaderBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_constants/letter_spacing = 6
+theme_override_font_sizes/font_size = 38
+text = "ESCOLHA SUA CLASSE"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="Control/MainContainer/HeaderBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.8, 0.9, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 4
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 15
+text = "Selecione o estilo de combate do seu campeão para entrar na arena"
+horizontal_alignment = 1
+
+[node name="CardsContainer" type="HBoxContainer" parent="Control/MainContainer"]
+layout_mode = 2
+theme_override_constants/separation = 36
+alignment = 1
+
+[node name="CardFighter" type="PanelContainer" parent="Control/MainContainer/CardsContainer"]
+custom_minimum_size = Vector2(340, 410)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_fighter")
+
+[node name="VBox" type="VBoxContainer" parent="Control/MainContainer/CardsContainer/CardFighter"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Badge" type="Label" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.8, 0.35, 1)
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge_fighter")
+text = "CORPO A CORPO"
+horizontal_alignment = 1
+
+[node name="ClassName" type="Label" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/letter_spacing = 3
+theme_override_font_sizes/font_size = 28
+text = "LUTADOR"
+horizontal_alignment = 1
+
+[node name="ClassRole" type="Label" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.84, 0.92, 1)
+theme_override_font_sizes/font_size = 13
+text = "Mestre de Artes Marciais e Impacto"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "🥊"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.95, 1)
+theme_override_font_sizes/font_size = 12
+text = "Ataques de socos velozes, combos fluidos de 3 golpes, investida fulminante e raio devastador de longo alcance."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="StatsBox" type="VBoxContainer" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="StatDmg" type="Label" parent="Control/MainContainer/CardsContainer/CardFighter/VBox/StatsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "Dano:      ★★★★☆"
+horizontal_alignment = 1
+
+[node name="StatSpd" type="Label" parent="Control/MainContainer/CardsContainer/CardFighter/VBox/StatsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "Agilidade: ★★★★☆"
+horizontal_alignment = 1
+
+[node name="StatRng" type="Label" parent="Control/MainContainer/CardsContainer/CardFighter/VBox/StatsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "Alcance:   ★★☆☆☆"
+horizontal_alignment = 1
+
+[node name="SkillsHint" type="Label" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.72, 0.3, 1)
+theme_override_font_sizes/font_size = 11
+text = "[Q] Investida  |  [E] Onda  |  [F] Ultimate"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SelectButton" type="Button" parent="Control/MainContainer/CardsContainer/CardFighter/VBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.12, 0.1, 0.15, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_fighter")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_fighter_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_fighter_hover")
+text = "JOGAR COM LUTADOR"
+
+[node name="CardGunslinger" type="PanelContainer" parent="Control/MainContainer/CardsContainer"]
+custom_minimum_size = Vector2(340, 410)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card_gunslinger")
+
+[node name="VBox" type="VBoxContainer" parent="Control/MainContainer/CardsContainer/CardGunslinger"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Badge" type="Label" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.4, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_badge_gunslinger")
+text = "LONGO ALCANCE"
+horizontal_alignment = 1
+
+[node name="ClassName" type="Label" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.85, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_constants/letter_spacing = 3
+theme_override_font_sizes/font_size = 28
+text = "PISTOLEIRO"
+horizontal_alignment = 1
+
+[node name="ClassRole" type="Label" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.84, 0.92, 1)
+theme_override_font_sizes/font_size = 13
+text = "Especialista em Armas de Fogo"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+
+[node name="Icon" type="Label" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "🎯"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.95, 1)
+theme_override_font_sizes/font_size = 12
+text = "Domínio de armas à distância, mobilidade acrobática, tiros rápidos de precisão e arsenal de alto calibre."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="StatsBox" type="VBoxContainer" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="StatDmg" type="Label" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox/StatsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "Dano:      ★★★★☆"
+horizontal_alignment = 1
+
+[node name="StatSpd" type="Label" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox/StatsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "Agilidade: ★★★★★"
+horizontal_alignment = 1
+
+[node name="StatRng" type="Label" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox/StatsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "Alcance:   ★★★★★"
+horizontal_alignment = 1
+
+[node name="SkillsHint" type="Label" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "[Q] Disparo em Corrida  |  [E] Armadilha  |  [F] Tiro Certeiro"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SelectButton" type="Button" parent="Control/MainContainer/CardsContainer/CardGunslinger/VBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.08, 0.15, 0.25, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gunslinger")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_gunslinger_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_gunslinger_hover")
+text = "JOGAR COM PISTOLEIRO"
+
+[node name="NoticeContainer" type="CenterContainer" parent="Control/MainContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+
+[node name="NoticeLabel" type="Label" parent="Control/MainContainer/NoticeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.85, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_notice")
+text = "⚔️ Escolha seu campeão para dominar o combate na arena!"
+horizontal_alignment = 1
+
+[node name="FooterHint" type="Label" parent="Control/MainContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.6, 0.7, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "[ Clique no card ou no botão para selecionar sua classe ]"
+horizontal_alignment = 1
+
+[node name="BtnBackToMenu" type="Button" parent="Control/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_back")
+text = "⬅ VOLTAR AO MENU PRINCIPAL (ESC)"
+

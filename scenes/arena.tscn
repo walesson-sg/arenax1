@@ -1,0 +1,405 @@
+[gd_scene load_steps=25 format=3 uid="uid://df7w8y1h3j5ka"]
+
+[ext_resource type="Script" path="res://scripts/arena.gd" id="1_arena_script"]
+[ext_resource type="PackedScene" path="res://scenes/fighter.tscn" id="2_fighter_scene"]
+[ext_resource type="Script" path="res://scripts/arena_camera.gd" id="3_camera_script"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="4_hud_script"]
+[ext_resource type="PackedScene" path="res://scenes/class_selection.tscn" id="5_class_select_scene"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_twilight"]
+sky_top_color = Color(0.06, 0.08, 0.14, 1)
+sky_horizon_color = Color(0.18, 0.16, 0.28, 1)
+ground_bottom_color = Color(0.07, 0.07, 0.1, 1)
+ground_horizon_color = Color(0.18, 0.16, 0.28, 1)
+
+[sub_resource type="Sky" id="Sky_arena"]
+sky_material = SubResource("ProceduralSkyMaterial_twilight")
+
+[sub_resource type="Environment" id="Environment_arena"]
+background_mode = 2
+sky = SubResource("Sky_arena")
+ambient_light_source = 2
+ambient_light_color = Color(0.55, 0.58, 0.68, 1)
+ambient_light_energy = 0.55
+tonemap_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_board_frame"]
+albedo_color = Color(0.08, 0.09, 0.12, 1)
+roughness = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_board_frame"]
+material = SubResource("StandardMaterial3D_board_frame")
+size = Vector3(102, 0.9, 102)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fantasy_pillar"]
+albedo_color = Color(0.16, 0.17, 0.24, 1)
+roughness = 0.35
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rook"]
+material = SubResource("StandardMaterial3D_fantasy_pillar")
+top_radius = 1.4
+bottom_radius = 2.0
+height = 14.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glow_amber"]
+albedo_color = Color(0.95, 0.72, 0.2, 1)
+emission_enabled = true
+emission = Color(0.95, 0.72, 0.2, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="PrismMesh" id="PrismMesh_crystal"]
+material = SubResource("StandardMaterial3D_glow_amber")
+size = Vector3(2.2, 3.2, 2.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floating_stone"]
+albedo_color = Color(0.2, 0.22, 0.3, 1)
+roughness = 0.45
+
+[sub_resource type="BoxMesh" id="BoxMesh_floating_slab"]
+material = SubResource("StandardMaterial3D_floating_stone")
+size = Vector3(5, 1.2, 5)
+
+[sub_resource type="TorusMesh" id="TorusMesh_ring"]
+material = SubResource("StandardMaterial3D_glow_amber")
+inner_radius = 4.0
+outer_radius = 4.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_deadzone"]
+size = Vector3(260, 2, 260)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1"]
+bg_color = Color(0.2, 0.6, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2"]
+bg_color = Color(0.92, 0.22, 0.25, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_banner_bg"]
+bg_color = Color(0.04, 0.04, 0.06, 0.82)
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.7, 0.2, 0.9)
+content_margin_top = 28.0
+content_margin_bottom = 28.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.18, 0.2, 0.28, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.72, 0.25, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 24.0
+content_margin_top = 10.0
+content_margin_right = 24.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.85, 0.72, 0.25, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 24.0
+content_margin_top = 10.0
+content_margin_right = 24.0
+content_margin_bottom = 10.0
+
+[node name="Arena" type="Node3D"]
+script = ExtResource("1_arena_script")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_arena")
+
+[node name="Moonlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.819152, -0.40558, 0.40558, 0, 0.707107, 0.707107, -0.573576, -0.579228, 0.579228, 0, 25, 0)
+light_color = Color(0.9, 0.93, 1, 1)
+light_energy = 1.15
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_floor")
+
+[node name="BoardFrame" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_board_frame")
+
+[node name="Chessboard" type="Node3D" parent="Floor"]
+
+[node name="FantasyDecor" type="Node3D" parent="."]
+
+[node name="RookPillar1" type="MeshInstance3D" parent="FantasyDecor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 4, -58)
+mesh = SubResource("CylinderMesh_rook")
+
+[node name="CrystalTop1" type="MeshInstance3D" parent="FantasyDecor/RookPillar1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, 0)
+mesh = SubResource("PrismMesh_crystal")
+
+[node name="RookPillar2" type="MeshInstance3D" parent="FantasyDecor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 4, -58)
+mesh = SubResource("CylinderMesh_rook")
+
+[node name="CrystalTop2" type="MeshInstance3D" parent="FantasyDecor/RookPillar2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, 0)
+mesh = SubResource("PrismMesh_crystal")
+
+[node name="RookPillar3" type="MeshInstance3D" parent="FantasyDecor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58, 4, 58)
+mesh = SubResource("CylinderMesh_rook")
+
+[node name="CrystalTop3" type="MeshInstance3D" parent="FantasyDecor/RookPillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, 0)
+mesh = SubResource("PrismMesh_crystal")
+
+[node name="RookPillar4" type="MeshInstance3D" parent="FantasyDecor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58, 4, 58)
+mesh = SubResource("CylinderMesh_rook")
+
+[node name="CrystalTop4" type="MeshInstance3D" parent="FantasyDecor/RookPillar4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.5, 0)
+mesh = SubResource("PrismMesh_crystal")
+
+[node name="FloatingSlab1" type="MeshInstance3D" parent="FantasyDecor"]
+transform = Transform3D(0.94, 0.34, 0, -0.34, 0.94, 0, 0, 0, 1, -38, 16, -68)
+mesh = SubResource("BoxMesh_floating_slab")
+
+[node name="FloatingSlab2" type="MeshInstance3D" parent="FantasyDecor"]
+transform = Transform3D(0.866, -0.5, 0, 0.5, 0.866, 0, 0, 0, 1, 38, 18, -72)
+mesh = SubResource("BoxMesh_floating_slab")
+
+[node name="MysticRing" type="MeshInstance3D" parent="FantasyDecor"]
+transform = Transform3D(0.707107, 0, 0.707107, 0.707107, 0, -0.707107, 0, 1, 0, 0, 24, -80)
+mesh = SubResource("TorusMesh_ring")
+
+[node name="DeadZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeadZone"]
+shape = SubResource("BoxShape3D_deadzone")
+
+[node name="Fighter1" parent="." instance=ExtResource("2_fighter_scene")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, 0)
+
+[node name="Fighter2" parent="." instance=ExtResource("2_fighter_scene")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+is_player = false
+player_id = 2
+hair_color = Color(0.22, 0.16, 0.34, 1)
+outfit_color = Color(0.5, 0.32, 0.85, 1)
+boots_color = Color(0.25, 0.2, 0.42, 1)
+belt_color = Color(0.35, 0.35, 0.42, 1)
+eye_color = Color(0.55, 0.12, 0.2, 1)
+
+[node name="ArenaCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 3, 6)
+current = true
+script = ExtResource("3_camera_script")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("4_hud_script")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 20
+
+[node name="TopBar" type="HBoxContainer" parent="HUD/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="P1Name" type="Label" parent="HUD/MarginContainer/TopBar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "JOGADOR 1"
+
+[node name="P1Health" type="ProgressBar" parent="HUD/MarginContainer/TopBar"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_p1")
+value = 100.0
+show_percentage = false
+
+[node name="TimerLabel" type="Label" parent="HUD/MarginContainer/TopBar"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "99"
+horizontal_alignment = 1
+
+[node name="P2Health" type="ProgressBar" parent="HUD/MarginContainer/TopBar"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_p2")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="P2Name" type="Label" parent="HUD/MarginContainer/TopBar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "BOT (CPU)"
+
+[node name="BottomHint" type="Label" parent="HUD/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "[W, A, S, D] Mover   |   [ESPAÇO] Pular   |   [J / Clique Esquerdo] Socar   |   [SHIFT] Esquiva   |   [SHIFT+CTRL / No Ar: CTRL] Deslizar   |   [K] Bloquear   |   [Q] [E] [F] Habilidades"
+horizontal_alignment = 1
+
+[node name="SkillBar" type="HBoxContainer" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -120.0
+offset_right = 120.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 12
+
+[node name="GameOverPanel" type="PanelContainer" parent="HUD"]
+visible = false
+anchors_preset = 14
+anchor_top = 0.35
+anchor_right = 1.0
+anchor_bottom = 0.65
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_banner_bg")
+
+[node name="VBox" type="VBoxContainer" parent="HUD/GameOverPanel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="HUD/GameOverPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 14
+theme_override_constants/letter_spacing = 8
+theme_override_font_sizes/font_size = 72
+text = "WIN"
+horizontal_alignment = 1
+
+[node name="ReasonLabel" type="Label" parent="HUD/GameOverPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 6
+theme_override_constants/letter_spacing = 3
+theme_override_font_sizes/font_size = 20
+text = "VITÓRIA POR K.O."
+horizontal_alignment = 1
+
+[node name="ButtonsHBox" type="HBoxContainer" parent="HUD/GameOverPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="RestartButton" type="Button" parent="HUD/GameOverPanel/VBox/ButtonsHBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.15, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_hover")
+text = "Iniciar uma nova luta"
+
+[node name="MenuButton" type="Button" parent="HUD/GameOverPanel/VBox/ButtonsHBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_colors/font_hover_color = Color(0.1, 0.1, 0.15, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_hover")
+text = "Voltar ao Menu Principal"
+
+[node name="PausePanel" type="PanelContainer" parent="HUD"]
+process_mode = 3
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -140.0
+offset_right = 220.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_banner_bg")
+
+[node name="VBox" type="VBoxContainer" parent="HUD/PausePanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PauseTitle" type="Label" parent="HUD/PausePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_constants/letter_spacing = 4
+theme_override_font_sizes/font_size = 28
+text = "DUELO PAUSADO"
+horizontal_alignment = 1
+
+[node name="BtnResume" type="Button" parent="HUD/PausePanel/VBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "CONTINUAR LUTANDO"
+
+[node name="BtnPauseMenu" type="Button" parent="HUD/PausePanel/VBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+text = "🚪 VOLTAR AO MENU PRINCIPAL"
+
+[node name="ClassSelection" parent="." instance=ExtResource("5_class_select_scene")]

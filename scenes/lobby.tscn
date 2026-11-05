@@ -1,0 +1,290 @@
+[gd_scene format=3 uid="uid://ci3y8j4n2q1la"]
+
+[ext_resource type="Script" path="res://scripts/lobby.gd" id="1_lobby_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.06, 0.07, 0.11, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_top_bar"]
+content_margin_left = 24.0
+content_margin_top = 16.0
+content_margin_right = 24.0
+content_margin_bottom = 16.0
+bg_color = Color(0.1, 0.12, 0.18, 0.95)
+border_width_bottom = 2
+border_color = Color(0.2, 0.25, 0.35, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_whatsapp"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.12, 0.65, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.9, 0.6, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_player_card"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+bg_color = Color(0.09, 0.11, 0.16, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.65, 0.2, 0.7)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_gold"]
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.9, 0.62, 0.18, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.82, 0.45, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_cyan"]
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.18, 0.5, 0.72, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.8, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_ready"]
+content_margin_top = 14.0
+content_margin_bottom = 14.0
+bg_color = Color(0.2, 0.58, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.95, 0.6, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_leave"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.25, 0.15, 0.18, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.3, 0.35, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lobby_script")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="VBoxMain" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="TopBar" type="PanelContainer" parent="VBoxMain"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_top_bar")
+
+[node name="HBox" type="HBoxContainer" parent="VBoxMain/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="RoomCodeLabel" type="Label" parent="VBoxMain/TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.35, 1)
+theme_override_constants/letter_spacing = 3
+theme_override_font_sizes/font_size = 28
+text = "SALA: X9K2B1"
+
+[node name="BtnCopyLink" type="Button" parent="VBoxMain/TopBar/HBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_whatsapp")
+text = "📋 COPIAR LINK DO DUELO (WHATSAPP)"
+
+[node name="LinkCopiedLabel" type="Label" parent="VBoxMain/TopBar/HBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 0.6, 1)
+theme_override_font_sizes/font_size = 14
+text = "✓ Link copiado para a área de transferência!"
+
+[node name="PlayersContainer" type="HBoxContainer" parent="VBoxMain"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="LocalPlayerPanel" type="PanelContainer" parent="VBoxMain/PlayersContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_player_card")
+
+[node name="VBox" type="VBoxContainer" parent="VBoxMain/PlayersContainer/LocalPlayerPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayerTitle" type="Label" parent="VBoxMain/PlayersContainer/LocalPlayerPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.8, 0.4, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 24
+text = "VOCÊ (HOST)"
+horizontal_alignment = 1
+
+[node name="Instruction" type="Label" parent="VBoxMain/PlayersContainer/LocalPlayerPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.85, 1)
+theme_override_font_sizes/font_size = 14
+text = "Escolha sua classe de combate:"
+horizontal_alignment = 1
+
+[node name="Classes" type="HBoxContainer" parent="VBoxMain/PlayersContainer/LocalPlayerPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BtnFighter" type="Button" parent="VBoxMain/PlayersContainer/LocalPlayerPanel/VBox/Classes"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_gold")
+text = "🥊 LUTADOR"
+
+[node name="BtnGunslinger" type="Button" parent="VBoxMain/PlayersContainer/LocalPlayerPanel/VBox/Classes"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_cyan")
+text = "🎯 PISTOLEIRO"
+
+[node name="ClassDesc" type="Label" parent="VBoxMain/PlayersContainer/LocalPlayerPanel/VBox"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.95, 1)
+theme_override_font_sizes/font_size = 13
+text = "LUTADOR: Combate corpo a corpo devastador, combos rápidos de socos, investida e onda de choque."
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxMain/PlayersContainer/LocalPlayerPanel/VBox"]
+layout_mode = 2
+
+[node name="BtnReady" type="Button" parent="VBoxMain/PlayersContainer/LocalPlayerPanel/VBox"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_ready")
+text = "CLIQUE PARA FICAR PRONTO"
+
+[node name="RemotePlayerPanel" type="PanelContainer" parent="VBoxMain/PlayersContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_player_card")
+
+[node name="VBox" type="VBoxContainer" parent="VBoxMain/PlayersContainer/RemotePlayerPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PlayerTitle" type="Label" parent="VBoxMain/PlayersContainer/RemotePlayerPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.75, 0.95, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 24
+text = "OPONENTE"
+horizontal_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="VBoxMain/PlayersContainer/RemotePlayerPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 16
+text = "STATUS: Aguardando amigo entrar..."
+horizontal_alignment = 1
+
+[node name="ClassLabel" type="Label" parent="VBoxMain/PlayersContainer/RemotePlayerPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.75, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "CLASSE: LUTADOR"
+horizontal_alignment = 1
+
+[node name="ReadyBadge" type="Label" parent="VBoxMain/PlayersContainer/RemotePlayerPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 16
+text = "AGUARDANDO ESCOLHA..."
+horizontal_alignment = 1
+
+[node name="BottomBar" type="HBoxContainer" parent="VBoxMain"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="BtnLeave" type="Button" parent="VBoxMain/BottomBar"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_leave")
+text = "🚪 SAIR DA SALA"
+
+[node name="StartStatusLabel" type="Label" parent="VBoxMain/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.88, 0.4, 1)
+theme_override_font_sizes/font_size = 18
+text = "Aguardando ambos confirmarem 'Pronto'..."
+horizontal_alignment = 1
+
