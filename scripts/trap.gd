@@ -4,8 +4,8 @@ extends Node3D
 const SkillFX = preload("res://scripts/skill_fx.gd")
 
 @export var trigger_radius: float = 1.4
-@export var root_duration: float = 2.0
-@export var damage_percent: float = 0.10 # 10% da vida máxima
+@export var root_duration: float = 1.2
+@export var damage_percent: float = 0.06 # 6% da vida máxima
 @export var max_duration: float = 30.0
 
 var owner_fighter: Node3D = null

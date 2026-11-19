@@ -40,7 +40,7 @@ enum NetAction {
 @export var target: Fighter = null
 
 @export_group("Stats")
-@export var max_health: float = 100.0
+@export var max_health: float = 120.0
 @export var speed: float = 7.0
 @export var jump_velocity: float = 6.5
 @export var dash_distance: float = 9.52 # 5.52m anteriores + 4m extras pedidos pelo usuário
@@ -60,25 +60,25 @@ enum NetAction {
 # Q - Investida (+10m extras, total 16m)
 @export var skill_q_distance: float = 16.0
 @export var skill_q_duration: float = 0.38
-@export var skill_q_damage_percent: float = 0.30
-@export var skill_q_blocked_damage_percent: float = 0.15
-@export var skill_q_cooldown: float = 5.0
+@export var skill_q_damage_percent: float = 0.14
+@export var skill_q_blocked_damage_percent: float = 0.07
+@export var skill_q_cooldown: float = 6.0
 # E - Onda circular / Explosão (+3m extras na área de efeito, raio total 5m)
 @export var skill_e_radius: float = 5.0
-@export var skill_e_damage_percent: float = 0.40
-@export var skill_e_cooldown: float = 10.0
+@export var skill_e_damage_percent: float = 0.18
+@export var skill_e_cooldown: float = 9.0
 # F - Ultimate (raio)
 @export var skill_f_charge_time: float = 2.0
 @export var skill_f_radius: float = 1.0
 @export var skill_f_length: float = 45.0
-@export var skill_f_damage_percent: float = 0.40
+@export var skill_f_damage_percent: float = 0.28
 @export var skill_f_cooldown: float = 20.0 # valor provisório, ajuste como preferir
 
 # Combat Stats & Combo System
 @export_group("Combo System")
-@export var combo_hit_1_damage: float = 10.0
-@export var combo_hit_2_damage: float = 12.0
-@export var combo_hit_3_damage_percent: float = 0.20 # Mesmo dano percentual do slam (20% da vida máx)
+@export var combo_hit_1_damage: float = 5.0
+@export var combo_hit_2_damage: float = 7.0
+@export var combo_hit_3_damage_percent: float = 0.10 # Mesmo dano percentual do slam (10% da vida máx)
 @export var combo_lunge_distance: float = 1.0 # Pequeno avanço de 1m para os socos
 @export var combo_lunge_duration: float = 0.12 # Duração da arrancada de 1m
 @export var combo_window_duration: float = 0.55 # Janela de tolerância para encadear os cliques
@@ -89,7 +89,7 @@ enum NetAction {
 @export var max_air_dashes: int = 1
 @export var slam_speed: float = 24.0
 @export var slam_radius: float = 2.5 # Metade do raio da habilidade E (5.0m / 2)
-@export var slam_damage_percent: float = 0.20 # Metade do dano da habilidade E (40% / 2)
+@export var slam_damage_percent: float = 0.10 # Metade do dano da habilidade E (18% / 2)
 @export var long_jump_speed: float = 37.0 # Velocidade inicial do Salto à Distância (2x a original)
 @export var long_jump_height_mult: float = 1.0 # Proporção do arco vertical no Salto à Distância
 
@@ -227,6 +227,13 @@ func _ready() -> void:
 
 func setup_class(p_class: String) -> void:
 	character_class = p_class
+
+	if character_class == "gunslinger":
+		max_health = 95.0
+	else:
+		max_health = 120.0
+	current_health = max_health
+	emit_signal("health_changed", current_health, max_health)
 
 	# Limpar peças procedurais anteriores
 	for child in visuals.get_children():
@@ -1626,11 +1633,11 @@ func get_skill_cooldown_total(skill_index: int) -> float:
 	if character_class == "gunslinger":
 		match skill_index:
 			SKILL_Q:
-				return 4.0 # 4 segundos de recarga conforme especificado
+				return 7.0 # 7 segundos de recarga para a corrida com rajada
 			SKILL_E:
-				return 8.0 # Armadilha
+				return 10.0 # Armadilha
 			_:
-				return 18.0 # Tiro Certeiro de Rifle Longo
+				return 20.0 # Tiro Certeiro de Rifle Longo
 	else:
 		match skill_index:
 			SKILL_Q:
@@ -1710,10 +1717,10 @@ func _fire_pistol_shot(from_rpc: bool = false) -> void:
 	if not from_rpc:
 		_send_net_action(NetAction.PISTOL_SHOT, [spawn_pos, shoot_dir])
 
-	# Dano de 5% da vida máxima do alvo
-	var dmg: float = 5.0
+	# Dano de 2% da vida máxima do alvo
+	var dmg: float = 2.0
 	if target and is_instance_valid(target):
-		dmg = target.max_health * 0.05
+		dmg = target.max_health * 0.02
 
 	var bullet: Bullet = BulletScript.new()
 	get_parent().add_child(bullet)
@@ -1760,9 +1767,9 @@ func _fire_gunslinger_q_shot(from_rpc: bool = false) -> void:
 	if not from_rpc:
 		_send_net_action(NetAction.GUNSLINGER_Q_SHOT, [spawn_pos, shoot_dir])
 
-	var dmg: float = 5.0
+	var dmg: float = 2.0
 	if target and is_instance_valid(target):
-		dmg = target.max_health * 0.05
+		dmg = target.max_health * 0.02
 
 	var bullet: Bullet = BulletScript.new()
 	get_parent().add_child(bullet)
@@ -1974,10 +1981,10 @@ func _fire_gunslinger_f() -> void:
 
 	var muzzle_pos: Vector3 = global_position + Vector3(0, 1.15, 0) + shoot_dir * 1.55
 
-	# DANO DE 50% DA VIDA DO ALVO (Tiro Certeiro)
+	# DANO DE 30% DA VIDA DO ALVO (Tiro Certeiro)
 	var beam_end: Vector3 = muzzle_pos + shoot_dir * 45.0
 	if target and is_instance_valid(target) and target.current_state != State.DEAD:
-		var dmg: float = target.max_health * 0.50
+		var dmg: float = target.max_health * 0.30
 		var knock_dir: Vector3 = (shoot_dir * 0.85 + Vector3.UP * 0.25).normalized()
 		target.take_damage(dmg, knock_dir * 16.0)
 
@@ -2692,9 +2699,9 @@ func _remote_fire_bullet(spawn_pos: Vector3, shoot_dir: Vector3, color: Color) -
 	tw.tween_property(fist, "position:z", orig_pos.z - 0.20, 0.05).set_trans(Tween.TRANS_QUAD)
 	tw.chain().tween_property(fist, "position:z", orig_pos.z, 0.11).set_trans(Tween.TRANS_SINE)
 
-	var dmg: float = 5.0
+	var dmg: float = 2.0
 	if target and is_instance_valid(target):
-		dmg = target.max_health * 0.05
+		dmg = target.max_health * 0.02
 	var bullet: Bullet = BulletScript.new()
 	get_parent().add_child(bullet)
 	bullet.setup(self, spawn_pos, shoot_dir, dmg, color)

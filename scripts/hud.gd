@@ -234,10 +234,12 @@ func _process(delta: float) -> void:
 		timer_label.text = str(int(ceil(match_time)))
 
 func _on_p1_health_changed(current: float, _max: float) -> void:
+	p1_bar.max_value = _max
 	var tween: Tween = create_tween()
 	tween.tween_property(p1_bar, "value", current, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 func _on_p2_health_changed(current: float, _max: float) -> void:
+	p2_bar.max_value = _max
 	var tween: Tween = create_tween()
 	tween.tween_property(p2_bar, "value", current, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 

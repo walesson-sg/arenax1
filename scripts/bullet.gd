@@ -8,7 +8,7 @@ const SkillFX = preload("res://scripts/skill_fx.gd")
 
 var shooter: Node3D = null
 var direction: Vector3 = Vector3.FORWARD
-var damage: float = 5.0
+var damage: float = 2.0
 var bullet_color: Color = Color(1.0, 0.82, 0.28, 1.0)
 var distance_traveled: float = 0.0
 
